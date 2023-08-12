@@ -1,0 +1,13 @@
+{
+  "name": "movies-explorer-api",
+  "version": "1.0.0",
+  "description": "backend for diploma project",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "lint": "npx eslint .",
+    "dev": "nodemon app.js"
+  },
+  "author": "Sergeev.D.D",
+  "license": "ISC"
+}
