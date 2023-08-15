@@ -2,27 +2,27 @@ const express = require('express');
 const mongoose = require('mongoose');
 const { celebrate, Joi, errors } = require('celebrate');
 const cookieParser = require('cookie-parser');
+const helmet = require('helmet');
+const rateLimiter = require('./middlewares/limiter');
 const { login, logout, createUser } = require('./controllers/users');
 const auth = require('./middlewares/auth');
 const NotFoundError = require('./errors/not-found-err');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const cors = require('./middlewares/cors');
-require('dotenv').config();
-
-//helmet, limiter?
 const {
-  PORT = '3000',
-  DB_URI = 'mongodb://localhost:27017/filmcollectondb',
-} = process.env;
+  SERVER_PORT,
+  DB,
+} = require('./utils/config');
 
 const app = express();
 app.use(express.json());
-mongoose.connect(DB_URI, {
+mongoose.connect(DB, {
   family: 4,
 });
 
+app.use(rateLimiter);
 app.use(requestLogger);
-
+app.use(helmet());
 app.use(cors);
 
 app.post('/signin', celebrate({
@@ -65,7 +65,6 @@ app.use((err, req, res, next) => {
     });
 });
 
-app.listen(PORT, () => {
-  // eslint-disable-next-line no-console
-  console.log(`Сервер запущен на порту : ${PORT}`);
+app.listen(SERVER_PORT, () => {
+  console.log(`Сервер запущен на порту : ${SERVER_PORT}`);
 });

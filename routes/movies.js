@@ -3,8 +3,9 @@ const { celebrate, Joi } = require('celebrate');
 const {
   getMovies, createMovie, deleteMovie,
 } = require('../controllers/movies');
-const isURL = /(http|https)\:\/\/[a-zA-Z0-9\-\.\/\_]+/;
-// country, director, duration, year, description, image, trailer, nameRU, nameEN и thumbnail, movieId
+
+const isURL = /(http|https):\/\/[a-zA-Z0-9\-./_]+/;
+
 router.get('/', getMovies);
 router.post('/', celebrate({
   body: Joi.object().keys({
@@ -17,9 +18,8 @@ router.post('/', celebrate({
     trailer: Joi.string().required().regex(isURL).max(1000),
     nameRU: Joi.string().required().min(2).max(30),
     nameEN: Joi.string().required().min(2).max(30),
-    thumbnail: Joi.string().required().min(2).regex(isURL).max(1000),
-    // eslint-disable-next-line no-useless-escape
-    movieId: Joi.number().required().regex(isURL),
+    thumbnail: Joi.string().required().regex(isURL).max(1000),
+    movieId: Joi.number().required(),
   }),
 }), createMovie);
 router.delete('/:movieId', celebrate({
