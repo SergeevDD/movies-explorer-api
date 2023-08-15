@@ -4,7 +4,7 @@ const allowedCors = [
   'https://localhost:3000',
 ];
 
-module.exports = function corse(req, res, next) {
+module.exports = (req, res, next) => {
   const { origin } = req.headers;
   const { method } = req;
   const requestHeaders = req.headers['access-control-request-headers'];
@@ -23,5 +23,5 @@ module.exports = function corse(req, res, next) {
     });
     return res.end();
   }
-  next();
+  return next();
 };

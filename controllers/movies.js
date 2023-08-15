@@ -22,7 +22,7 @@ module.exports.createMovie = async (req, res, next) => {
     year,
     description,
     image,
-    trailer,
+    trailerLink,
     nameRU,
     nameEN,
     thumbnail,
@@ -35,11 +35,12 @@ module.exports.createMovie = async (req, res, next) => {
     year,
     description,
     image,
-    trailer,
+    trailerLink,
     nameRU,
     nameEN,
     thumbnail,
     movieId,
+    owner: req.user,
   })
     .then((populateMovie) => populateMovie.populate('owner'))
     .then((newMovie) => {
@@ -60,13 +61,11 @@ module.exports.deleteMovie = (req, res, next) => {
       if (dbMovie.owner.toString() !== req.user) {
         throw new AccessError('У вас нет прав на удаление');
       }
-      return dbMovie.deleteOne({ _id: dbMovie._id })
+      return movie.deleteOne({ _id: dbMovie._id })
         .then((c) => {
           if (c.deletedCount === 1) {
-            return dbMovie;
+            res.send({ dbMovie });
           }
-        })
-        .then((removedMovie) => res.send({ data: removedMovie }));
-    })
-    .catch(next);
+        });
+    }).catch(next);
 };

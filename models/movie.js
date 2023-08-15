@@ -28,7 +28,7 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 2,
-    maxlength: 100,
+    maxlength: 1000,
   },
   image: {
     type: String,
@@ -68,10 +68,10 @@ const movieSchema = new mongoose.Schema({
     required: true,
     ref: 'user',
   },
-  movieId: [{
+  movieId: {
     type: Number,
     required: true,
-  }],
+  },
   nameRU: {
     type: String,
     required: true,
