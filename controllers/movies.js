@@ -64,7 +64,7 @@ module.exports.deleteMovie = (req, res, next) => {
       return movie.deleteOne({ _id: dbMovie._id })
         .then((c) => {
           if (c.deletedCount === 1) {
-            res.send({ dbMovie });
+            res.send(dbMovie);
           }
         });
     }).catch(next);
