@@ -6,13 +6,13 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 2,
-    maxlength: 60,
+    maxlength: 500,
   },
   director: {
     type: String,
     required: true,
     minlength: 2,
-    maxlength: 60,
+    maxlength: 500,
   },
   duration: {
     type: Number,
@@ -28,7 +28,7 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 2,
-    maxlength: 1000,
+    maxlength: 10000,
   },
   image: {
     type: String,
@@ -76,13 +76,13 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 2,
-    maxlength: 30,
+    maxlength: 500,
   },
   nameEN: {
     type: String,
     required: true,
     minlength: 2,
-    maxlength: 30,
+    maxlength: 500,
   },
 });
 
